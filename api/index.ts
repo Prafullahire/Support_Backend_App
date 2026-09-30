@@ -44,7 +44,28 @@ async function bootstrap() {
   logger.log('NestJS initialized successfully.');
 }
 
+const ALLOWED_ORIGIN = 'https://support-frontend-app.vercel.app';
+
+function setCorsHeaders(res: any) {
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,Accept,X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  res.setHeader('Vary', 'Origin');
+}
+
 export default async function handler(req: any, res: any) {
+  // ── Handle CORS preflight immediately — before NestJS boots ─────────────
+  if (req.method === 'OPTIONS') {
+    setCorsHeaders(res);
+    res.status(200).end();
+    return;
+  }
+
+  // Set CORS headers on every real request too
+  setCorsHeaders(res);
+
   try {
     if (!app) {
       await bootstrap();
