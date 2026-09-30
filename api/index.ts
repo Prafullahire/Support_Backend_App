@@ -18,9 +18,17 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: process.env.FRONTEND_URL || '*',
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:3000',
+      'https://support-frontend-app.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
     credentials: true,
   });
+
 
   app.setGlobalPrefix('api/v1');
 
