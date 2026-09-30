@@ -23,7 +23,6 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { AuditLogsModule } from './audit-logs/audit-logs.module';
 import { ReportsModule } from './reports/reports.module';
 import { ImportsModule } from './imports/imports.module';
-import { UploadsModule } from './uploads/uploads.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { OfficeLocationsModule } from './office-locations/office-locations.module';
 import { OfficeBoyStaffModule } from './office-boy-staff/office-boy-staff.module';
@@ -60,7 +59,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     AuditLogsModule,
     ReportsModule,
     ImportsModule,
-    UploadsModule,
     DashboardModule,
     OfficeLocationsModule,
     OfficeBoyStaffModule,
