@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  included_files = ["node_modules/.prisma/client/**/*", "node_modules/@prisma/client/**/*"]
+
+[[redirects]]
+  from = "/api/v1/*"
+  to = "/.netlify/functions/api/api/v1/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/api/health"
+  status = 200
+  force = true
