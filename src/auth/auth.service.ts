@@ -23,7 +23,7 @@ export class AuthService {
     private jwtService: JwtService,
     private config: ConfigService,
     private mailService: MailService,
-  ) {}
+  ) { }
 
   async register(dto: RegisterDto) {
     const isEmail = dto.emailOrPhone.includes('@');
@@ -277,11 +277,32 @@ export class AuthService {
   }
 
   async getRegisterBranches() {
-    return this.prisma.branch.findMany({
-      where: { isActive: true },
-      select: { id: true, name: true, code: true },
-      orderBy: { name: 'asc' },
-    });
+    try {
+      console.log('➡️ getRegisterBranches called');
+
+      await this.prisma.$queryRaw`SELECT 1`;
+
+      console.log('✅ Database connection successful');
+
+      const branches = await this.prisma.branch.findMany({
+        where: { isActive: true },
+        select: {
+          id: true,
+          name: true,
+          code: true,
+        },
+        orderBy: {
+          name: 'asc',
+        },
+      });
+
+      console.log('✅ Branches fetched:', branches.length);
+
+      return branches;
+    } catch (error) {
+      console.error('❌ DATABASE/BRANCH ERROR:', error);
+      throw error;
+    }
   }
 
   async getRegisterOfficeLocations(branchId?: string) {
