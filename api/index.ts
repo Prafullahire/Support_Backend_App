@@ -71,6 +71,10 @@ export default async function handler(req: any, res: any) {
       await bootstrap();
     }
 
+    // NestJS global prefix is 'api/v1', and Vercel routes already
+    // forward the full /api/v1/... path. We must NOT strip it here
+    // because expressApp (NestJS) expects the full path including the prefix.
+    // Only strip legacy rewrites if present.
     if (req.url) {
       if (req.url.startsWith('/api/backend')) {
         req.url = req.url.replace('/api/backend', '');
