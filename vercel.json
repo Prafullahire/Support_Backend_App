@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/v1/:path*",
-      "destination": "/api/index"
+      "destination": "/api/index.ts"
     }
   ],
   "headers": [
